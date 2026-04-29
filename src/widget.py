@@ -12,9 +12,12 @@ def mask_account_card(account_card: str) -> str:
         for letter in account_card:
             if letter.isalpha():
                 letters.append(letter)
+                account_card = account_card.replace(letter, '')
         letters = "".join(letters)
-        account_card = account_card.replace(letters, "")
+
         result = letters + get_mask_card_number(account_card)
+
+
 
     return result
 
@@ -24,3 +27,7 @@ def get_date(date: str) -> str:
     fixed_date = f"{parts[2]}.{parts[1]}.{parts[0]}"
 
     return fixed_date
+
+
+print(mask_account_card("Visa Classic 6831982476737658"))
+print(mask_account_card("Счет 35383033474447895560"))
