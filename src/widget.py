@@ -1,23 +1,19 @@
-from masks import get_mask_card_number, mask_account
+from masks import get_mask_card_number, get_mask_account
 
 
 def mask_account_card(account_card: str) -> str:
     account_card = account_card.title()
     account = "Счет"
-    letters = []
+    numbers = []
     if account in account_card:
-        account_card = account + " " + mask_account(account_card)
+        account_card = account + " " + get_mask_account(account_card)
         result = account_card
     else:
-        for letter in account_card:
-            if letter.isalpha():
-                letters.append(letter)
-                account_card = account_card.replace(letter, '')
-        letters = "".join(letters)
-
-        result = letters + get_mask_card_number(account_card)
-
-
+        for number in account_card:
+            if number.isdigit():
+                numbers.append(number)
+                account_card = account_card.replace(number, "")
+                result = account_card + ' ' + get_mask_card_number(''.join(numbers))
 
     return result
 
@@ -29,5 +25,3 @@ def get_date(date: str) -> str:
     return fixed_date
 
 
-print(mask_account_card("Visa Classic 6831982476737658"))
-print(mask_account_card("Счет 35383033474447895560"))
