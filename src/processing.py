@@ -6,7 +6,7 @@ def filter_by_state(list_dict: list, state: str = "EXECUTED") -> list:
         if one_dict["state"] == state:
             filtered_datas.append(one_dict)
         elif state != "EXECUTED" and state != "CANCELLED":
-            return "Неправильно введено занчение 'state'"
+            return "Неверно введено занчение 'state'"
 
 
     return filtered_datas
