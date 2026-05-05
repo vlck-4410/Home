@@ -1,6 +1,6 @@
 def filter_by_state(list_dict: list, state = "EXECUTED") -> list:
     """Принимает список словарей и значение для ключа state, возвращает новый список,
-    со словарями, в которых state соответсвтует указанному значению."""
+    со словарями, в которых state соответсвтует указанному значению"""
     sorted_dict = []
     for one_dict in list_dict:
         if one_dict["state"] == state:
