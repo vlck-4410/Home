@@ -1,11 +1,22 @@
 import pytest
 
 @pytest.fixture
-def card_number():
-    return '541612132155489121'
+def card():
+    return '1284723930465822'
 
+@pytest.fixture
 def account():
-    return '551203565233543'
+    return '98687557658789078769'
 
-def mask_account_and_card():
-    return (['MasterCard 545451521321864'], ['Счет 541123164512368'])
+
+@pytest.fixture
+def card_number():
+    return 'MasterCard 8736589135087164'
+
+@pytest.fixture
+def account_name():
+    return 'Счет 3243542363'
+
+@pytest.fixture
+def date():
+    return '2014-02-11T02.23.17.325546'

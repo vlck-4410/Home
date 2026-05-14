@@ -21,5 +21,17 @@ def test_mask_account_card(value, expected):
     ('20=2144123','Некорректно введена дата'),
     ('','Некорректно введена дата')
 ])
-def test_get_date(value, expected):
+def test_get_date(value, expected, date):
     assert get_date(value) == expected
+
+
+def test_account_fixture(account_name):
+    assert mask_account_card(account_name) == 'Счет **2363'
+
+
+def test_card_number(card_number):
+    assert mask_account_card(card_number) == 'MasterCard 8736 58** **** 7164'
+
+
+def test_get_date_fixture(date):
+    assert get_date(date) == '11.02.2014'

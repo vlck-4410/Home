@@ -1,3 +1,4 @@
+import pytest
 from src.masks import get_mask_card_number, get_mask_account
 
 
@@ -26,7 +27,7 @@ def get_date(date: str) -> str:
     return 'Некорректно введена дата'
 
 
-i = mask_account_card('Строка')
+i = get_date('2014-02-11T02.23.17.325546')
 print(i)
 
 

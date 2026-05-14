@@ -17,3 +17,5 @@ def get_mask_card_number(card_number: str) -> str:
 
 
 
+i = get_mask_account('98687557658789078769')
+print(i)
