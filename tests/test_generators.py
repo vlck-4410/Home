@@ -89,12 +89,14 @@ def test_generator_transaction_descriptions():
    for expected in expected_results:
        assert next(generator) == expected
 
+
 def test_generator_transaction_descriptions_zero_data():
     test_data = ([])
     generator = transaction_descriptions(test_data)
     expected_results = ['Данные отсутствуют']
     for expected in expected_results:
         assert next(generator) == expected
+
 
 def test_generator_transaction_descriptions_less_key_description():
     test_data = ([
@@ -187,15 +189,17 @@ def test_filter_by_currency_zero_data():
     for expected in expected_results:
         assert next(generator) == expected
 
+
 def test_filter_by_currency_zero_data_with_currency():
-    test_data = ([], x=='RUB')
+    test_data = ([])
     generator = filter_by_currency(test_data)
     expected_results = ['Нет данных']
     for expected in expected_results:
         assert next(generator) == expected
 
+
 def test_filter_by_currency_less_key_data():
-    test_data = ([{
+    test_data = [{
             "id": 939719570,
             "state": "EXECUTED",
             "date": "2018-06-30T02:08:58.425572",
@@ -269,11 +273,26 @@ def test_filter_by_currency_less_key_data():
             "description": "Перевод организации",
             "from": "Visa Platinum 1246377376343588",
             "to": "Счет 14211924144426031657"
-        }], x == 'RUB')
-    generator = filter_by_currency(test_data)
+        }]
+
+    generator = filter_by_currency(test_data, "RUB")
     expected_results = ['Нет данных']
     for expected in expected_results:
         assert next(generator) == expected
+
+
+@pytest.mark.parametrize('start_number, end_number, expected', [
+    (0, 0,['Введите значения']),
+    (1, 5, ['0000 0000 0000 0001',
+                        '0000 0000 0000 0002',
+                        '0000 0000 0000 0003',
+                        '0000 0000 0000 0004',
+                        '0000 0000 0000 0005']),
+     (1, 1, ['0000 0000 0000 0001'])
+ ])
+def test_card_number_generator(start_number, end_number, expected):
+    assert list(card_number_generator(start_number, end_number)) == expected
+
 
 
 
