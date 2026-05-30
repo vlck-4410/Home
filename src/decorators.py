@@ -19,7 +19,7 @@ def log(filename=None):
             except Exception as e:
                 error_type = type(e).__name__
 
-                log_message = f'{function.__name__} error: {error_type}'
+                log_message = f'{function.__name__} error: {error_type}. Inputs: {args}, {kwargs}'
 
                 if filename:
                     f.write(log_message + '\n')
