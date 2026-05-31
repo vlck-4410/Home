@@ -2,6 +2,7 @@ import logging
 from functools import wraps
 
 def log(filename=None):
+    """Декоратор, который логирует ошибки и записывает их в указанный файл"""
     def decorator(function):
         @wraps(function)
         def wrapper(*args, **kwargs):
@@ -22,7 +23,8 @@ def log(filename=None):
                 log_message = f'{function.__name__} error: {error_type}. Inputs: {args}, {kwargs}'
 
                 if filename:
-                    f.write(log_message + '\n')
+                    with open(filename, 'a', encoding = 'utf-8') as f:
+                        f.write(log_message + '\n')
                 else:
                     print(log_message)
 

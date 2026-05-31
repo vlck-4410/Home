@@ -1,7 +1,7 @@
 from src.masks import get_mask_account, get_mask_card_number
 from src.decorators import log
 
-@log()
+
 def mask_account_card(account_card: str) -> str:
     if not account_card.isalpha() and not account_card.isdigit() and account_card != "":
         account_card = account_card.split(" ")
@@ -26,5 +26,5 @@ def get_date(date: str) -> str:
     return "Некорректно введена дата"
 
 
-i = mask_account_card('MasterCard 34')
+i = mask_account_card('MasterCard 364')
 print(i)

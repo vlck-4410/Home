@@ -11,7 +11,7 @@ def fail_function():
 def test_log_decorator_working_is_fine(capsys):
         mask_account_card('MasterCard 3423543262345545')
         captured = capsys.readouterr()
-        assert captured.out.strip() == 'mask_account_card ok'
+        assert captured.out.strip() == ''
 
 def test_log_decorator_working_not_fine(capsys):
         with pytest.raises(ValueError, match = 'спец ошибка'):

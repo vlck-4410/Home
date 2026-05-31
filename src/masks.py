@@ -14,3 +14,7 @@ def get_mask_card_number(card_number: str) -> str:
         result = " ".join(mask_card[i : i + 4] for i in range(0, len(mask_card), 4))
         return result
     return "Неправильный номер карты"
+
+
+i = get_mask_account('656545484512')
+print(i)
