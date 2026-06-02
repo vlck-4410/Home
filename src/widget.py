@@ -1,4 +1,5 @@
 from src.masks import get_mask_account, get_mask_card_number
+from src.decorators import log
 
 
 def mask_account_card(account_card: str) -> str:
@@ -23,3 +24,7 @@ def get_date(date: str) -> str:
         fixed_date = f"{parts[2]}.{parts[1]}.{parts[0]}"
         return fixed_date
     return "Некорректно введена дата"
+
+
+i = mask_account_card('MasterCard 364')
+print(i)
