@@ -20,6 +20,7 @@ def convertation_currency(transaction):
     try:
         response = requests.get(url)
         response.raise_for_status()
+
         data = response.json()
 
         value_data = data.get("Valute", {}).get(currency_code, {})
