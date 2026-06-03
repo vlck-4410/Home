@@ -16,5 +16,5 @@ def get_mask_card_number(card_number: str) -> str:
     return "Неправильный номер карты"
 
 
-i = get_mask_account('656545484512')
+i = get_mask_account("656545484512")
 print(i)
