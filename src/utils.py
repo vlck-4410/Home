@@ -1,14 +1,22 @@
 import json
 import os
-from src.external_api import convertation_currency
+import logging
 
+logger = logging.getLogger('utils')
+logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler('logs/utils.log', mode='w', encoding='utf-8')
+file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
 
 def transactions_list(file_directory):
     """Принимает на вход путь к файлу json со списком транзакций
     и приводит их в список python"""
+    logger.info('Начало работы функции')
     transactions = []
     rub_amount = []
     if not os.path.exists(file_directory):
+        logger.error('Путь не определен или не существует')
         return transactions
 
     if type(file_directory) == dict:
@@ -16,20 +24,18 @@ def transactions_list(file_directory):
 
     if file_directory == "":
         return transactions
+    try:
+        with open(file_directory, "r", encoding="utf-8") as json_file:
+            data = json.load(json_file)
 
-    with open(file_directory, "r", encoding="utf-8") as json_file:
-        transactions = json.load(json_file)
+        if isinstance(data, list):
+            logger.info('Функция отработала корректно')
+            return data
+        return []
+    except (json.JSONDecodeError, TypeError):
+        logger.error('Ошибка')
+        return []
 
-    for transaction in transactions:
-        if transaction.get("operationAmount", {}).get("currency", {}).get("code", {}) == "RUB":
-            operation_amount = transaction.get("operationAmount", {}).get("amount", {})
-            rub_amount.append(operation_amount)
-        elif transaction.get("currency", {}.get("code", {})) != "RUB":
-            result = convertation_currency(transaction)
-            if result is not None:
-                rub_amount.append(result)
-
-    return rub_amount
 
 
 file_way = "data/operations.json"
