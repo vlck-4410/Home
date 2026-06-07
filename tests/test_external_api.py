@@ -1,4 +1,4 @@
-import pytest
+
 import requests
 from unittest.mock import patch, MagicMock
 from src.external_api import convertation_currency
