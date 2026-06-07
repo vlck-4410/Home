@@ -2,6 +2,7 @@ import json
 import os
 import logging
 
+
 logger = logging.getLogger('utils')
 logger.setLevel(logging.INFO)
 file_handler = logging.FileHandler('logs/utils.log', mode='w', encoding='utf-8')
@@ -9,21 +10,16 @@ file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(m
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
+
 def transactions_list(file_directory):
     """Принимает на вход путь к файлу json со списком транзакций
     и приводит их в список python"""
     logger.info('Начало работы функции')
-    transactions = []
-    rub_amount = []
-    if not os.path.exists(file_directory):
+
+    if not isinstance(file_directory, str) or not os.path.exists(file_directory):
         logger.error('Путь не определен или не существует')
-        return transactions
+        return []
 
-    if type(file_directory) == dict:
-        return transactions
-
-    if file_directory == "":
-        return transactions
     try:
         with open(file_directory, "r", encoding="utf-8") as json_file:
             data = json.load(json_file)
@@ -32,12 +28,10 @@ def transactions_list(file_directory):
             logger.info('Функция отработала корректно')
             return data
         return []
-    except (json.JSONDecodeError, TypeError):
-        logger.error('Ошибка')
+    except (json.JSONDecodeError, TypeError, FileNotFoundError, PermissionError) as error:
+        logger.error(f'Ошибка при обработке файла: {error}')
         return []
 
 
 
-file_way = "data/operations.json"
-i = transactions_list(file_way)
-print(i)
+

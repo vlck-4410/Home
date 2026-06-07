@@ -11,6 +11,7 @@ logger.addHandler(file_handler)
 
 load_dotenv()
 URL = os.getenv("URL")
+api_key = os.getenv("API_KEY")
 
 
 def convertation_currency(transaction):
@@ -21,30 +22,34 @@ def convertation_currency(transaction):
     amount = operation_amount.get("amount")
     currency_code = operation_amount.get("currency", {}).get("code")
 
-    if not url:
-        return "Произошла ошибка, url ссылка не найдена, либо не существует"
+    if not url or not api_key:
+        return 0.0
 
     if currency_code == "RUB":
         return float(amount)
 
     try:
-        response = requests.get(url)
+        headers = {'api-key': api_key}
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
         data = response.json()
 
         value_data = data.get("Valute", {}).get(currency_code, {})
         if not value_data:
             print(f"Валюта {currency_code} не найдена в курсах валют")
-            return None
+            return 0.0
+        nominal = value_data.get("Nominal", 1)
+        if nominal == 0:
+            nominal = 1
 
-        rate = value_data["Value"] / value_data.get("Nominal")
+        rate = value_data["Value"] / nominal
 
         rub_amount = float(amount) * rate
 
         logger.info('функция отработала корректно')
         return float(rub_amount)
 
-    except requests.RequestException as error:
+    except (requests.RequestException, KeyError, TypeError, ValueError) as error:
 
         print(f"Ошибка при запросе курсов: {error}")
-        return None
+        return 0.0
