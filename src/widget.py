@@ -26,5 +26,5 @@ def get_date(date: str) -> str:
     return "Некорректно введена дата"
 
 
-i = mask_account_card('MasterCard 364')
+i = mask_account_card("MasterCard 364")
 print(i)
