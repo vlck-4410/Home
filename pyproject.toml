@@ -7,6 +7,8 @@ authors = [
 ]
 requires-python = ">=3.14"
 dependencies = [
+    "pandas (>=3.0.3,<4.0.0)",
+    "pandas-stubs (>=3.0.3,<3.1.0)"
 ]
 
 
@@ -27,7 +29,8 @@ dev = [
     "requests (>=2.34.2,<3.0.0)",
     "python-dotenv (>=1.2.2,<2.0.0)",
     "mock (>=5.2.0,<6.0.0)",
-    "patch (>=1.16,<2.0)"
+    "patch (>=1.16,<2.0)",
+    "pandas (>=3.0.3,<4.0.0)"
 ]
 [tool.black]
     line-length = 119
