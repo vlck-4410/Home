@@ -7,6 +7,7 @@ file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(m
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
+
 def get_mask_account(account: str) -> str:
     """Маскировка номера акканта и вывод последних 4 цифр"""
     logger.info('Начало работы функции "get_mask_account", маскировка номера аккаунта')
@@ -30,10 +31,3 @@ def get_mask_card_number(card_number: str) -> str:
         return result
     logger.error('Введен неверный номер карты')
     return "Неправильный номер карты"
-
-
-i = get_mask_account("75646732432584322")
-im = get_mask_card_number('7')
-print(im)
-print(i)
-

@@ -24,6 +24,3 @@ def read_file_excel(file_dir) -> list:
         error = f"Ошибка чтения файла {err}"
         return error
     return transactions_from_excel
-
-
-
