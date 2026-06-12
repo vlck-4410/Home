@@ -1,9 +1,10 @@
 import csv
-
 import pandas as pd
 
 
 def read_file_csv(file_dir) -> list:
+    """Функция принимает на вход путь к файлу csv, на выход выдает
+    список словарей с транзакциями из этого файла"""
     try:
         with open(file_dir, encoding="utf8") as csvfile:
             transactions_from_csv = list(csv.DictReader(csvfile))
@@ -14,6 +15,8 @@ def read_file_csv(file_dir) -> list:
 
 
 def read_file_excel(file_dir) -> list:
+    """Функция принимает на вход путь к файлу xlsx, на выход выдает
+     список словарей с транзакциями из этого файла"""
     try:
         df = pd.read_excel(file_dir)
         transactions_from_excel = df.to_dict("records")
