@@ -31,7 +31,3 @@ def transactions_list(file_directory):
     except (json.JSONDecodeError, TypeError, FileNotFoundError, PermissionError) as error:
         logger.error(f'Ошибка при обработке файла: {error}')
         return []
-
-
-
-
