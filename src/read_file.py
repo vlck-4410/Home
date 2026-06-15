@@ -1,5 +1,6 @@
 import csv
 import pandas as pd
+import json
 
 
 def read_file_csv(file_dir) -> list:
@@ -24,3 +25,11 @@ def read_file_excel(file_dir) -> list:
         error = f"Ошибка чтения файла {err}"
         return error
     return transactions_from_excel
+
+
+file = r'C:\Users\Serega\PycharmProjects\transactions_excel.xlsx'
+i = read_file_excel(file)
+json_dir = 'data/operations_1.json'
+with open(json_dir, 'w', encoding="utf8") as json_file:
+   json.dump(i, json_file, indent=4)
+

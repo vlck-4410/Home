@@ -14,6 +14,8 @@ def process_bank_search(data: list[dict], search:str) -> list[dict]:
 
 
 def process_bank_operations(data:list[dict], categories:list)->dict:
+    """функция, которая принимает список словарей с данными о банковских операциях и список категорий операций, возвращает словарь
+    с отфильтрованными операциями"""
     categories_count = {category:0  for category in categories}
     for operation in data:
        if operation.get('description'):
@@ -25,6 +27,3 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
     return categories_count
 
 
-operations = transactions_list('data/operations.json')
-# i = process_bank_operations(operations, ['Открытие вклада', 'Перевод со счета на счет', 'Перевод организации', "Перевод с карты на карту"])
-# print(i)
