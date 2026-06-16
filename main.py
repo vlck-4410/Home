@@ -13,8 +13,6 @@ def main():
 
     print("Привет! Добро пожаловать в программу работы \nс банковскими транзакциями.")
 
-    operations = []
-
     while True:
         print("""\nВыберите необходимый пункт меню:
 1. Получить информацию о транзакциях из JSON-файла
@@ -40,9 +38,7 @@ def main():
     operation_to_filter_transactions = ["EXECUTED", "CANCELED", "PENDING"]
 
     while True:
-        print(
-            "\nВведите статус, по которому необходимо выполнить фильтрацию. \nДоступные для фильтровки статусы: EXECUTED, CANCELED, PENDING"
-        )
+        print("""\nВведите статус, по которому необходимо выполнить фильтрацию. \nДоступные для фильтровки статусы: EXECUTED, CANCELED, PENDING""")
         status_input = input().upper().strip()
 
         if status_input in operation_to_filter_transactions:
@@ -82,9 +78,11 @@ def main():
     print("\nРаспечатываю итоговый список транзакций...\n")
 
     if isinstance(operations, dict):
-        print(f"Всего банковских операций в выборке: {len(operations)}")
+        total_operations = sum(operations.values())
+        print(f"Всего банковских операций в выборке: {total_operations}\n")
+
         for category, count in operations.items():
-            print(f"{category}: {count}")
+            print(f"Статистика по категории: {category}: {count}")
 
     elif isinstance(operations, list):
         if not operations:
@@ -92,37 +90,36 @@ def main():
         else:
             print(f"Всего банковских операций в выборке: {len(operations)}\n")
 
-            for operation in operations:
-                if isinstance(operation, dict):
+    for operation in operations:
+        if isinstance(operation, dict):
+            raw_date = operation.get("date")
+            date_str = get_date(raw_date) if isinstance(raw_date, str) and raw_date else "Дата не указана"
+            description = operation.get("description", "Без описания")
+            from_val = operation.get("from")
+            if isinstance(from_val, str) and from_val.strip() and from_val.lower() != "nan":
+                from_acc = mask_account_card(from_val)
+            else:
+                from_acc = None
 
-                    raw_date = operation.get("date", "")
-                    date_str = get_date(raw_date) if raw_date else "Дата не указана"
+            to_val = operation.get("to")
+            if isinstance(to_val, str) and to_val.strip() and to_val.lower() != "nan":
+                to_acc = mask_account_card(to_val)
+            else:
+                to_acc = "Счет не указан"
 
-                    description = operation.get("description", "Без описания")
+            if from_acc:
+                transfer_route = f"{from_acc} -> {to_acc}"
+            else:
+                transfer_route = f"{to_acc}"
 
-                    from_val = operation.get("from")
-                    from_acc = mask_account_card(from_val) if isinstance(from_val, str) else None
+            amount = operation.get("amount", "0")
+            currency = operation.get("currency", "руб")
+            if currency == "RUB":
+                currency = "руб"
 
-                    to_val = operation.get("to")
-                    to_acc = mask_account_card(to_val) if isinstance(to_val, str) else "Не указан"
-
-                    if from_acc:
-                        transfer_route = f"{from_acc} -> {to_acc}"
-                    else:
-                        transfer_route = f"{to_acc}"
-
-                    if "operationAmount" in operation:
-                        # Структура JSON
-                        amount = operation["operationAmount"].get("amount", "0")
-                        currency = operation["operationAmount"].get("currency", {}).get("name", "")
-                    else:
-                        amount = operation.get("amount", "0")
-                        currency_raw = operation.get("currency_name", "руб.")
-                        currency = "руб." if currency_raw == "RUB" else currency_raw
-
-                    print(f"{date_str} {description}")
-                    print(transfer_route)
-                    print(f"Сумма: {amount} {currency}\n")
+            print(f"{date_str} {description}")
+            print(transfer_route)
+            print(f"Сумма: {amount} {currency}\n")
 
 
 if __name__ == "__main__":

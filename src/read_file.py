@@ -8,7 +8,7 @@ def read_file_csv(file_dir) -> list:
     список словарей с транзакциями из этого файла"""
     try:
         with open(file_dir, encoding="utf8") as csvfile:
-            transactions_from_csv = list(csv.DictReader(csvfile))
+            transactions_from_csv = list(csv.DictReader(csvfile, delimiter=','))
     except Exception as err:
         error = f"Ошибка чтения файла {err}"
         return error
@@ -27,9 +27,7 @@ def read_file_excel(file_dir) -> list:
     return transactions_from_excel
 
 
-file = r'C:\Users\Serega\PycharmProjects\transactions_excel.xlsx'
-i = read_file_excel(file)
-json_dir = 'data/operations_1.json'
-with open(json_dir, 'w', encoding="utf8") as json_file:
-   json.dump(i, json_file, indent=4)
+# file = r"C:\Users\Serega\PycharmProjects\transactions.csv"
+# i = read_file_csv(file)
+# print(i)
 
