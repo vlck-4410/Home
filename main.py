@@ -65,7 +65,7 @@ def main():
 
     print("\nОтфильтровать список транзакций по определенному слову в описании? Да/Нет")
     if input().lower().strip() == "да":
-        print("Введите название операции (фразы через запятую):")
+        print("Введите название операции (фразы через запятую и с заглавной буквы):")
         user_input_words_to_filter = input()
 
         user_input_list = [word.strip() for word in user_input_words_to_filter.split(",") if word.strip()]
