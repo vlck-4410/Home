@@ -29,5 +29,3 @@ def get_date(date: str) -> str:
     # return "Некорректно введена дата"
 
 
-# i = get_date("2020-08-02T09:35:18Z")
-# print(i)

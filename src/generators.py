@@ -2,11 +2,11 @@ def filter_by_currency(list_dict, x=None):
     """Функция принимает на вход список словарей и маркер валюты, поочередно выдает транзакции
     где валюта операции соответствует заданной в переменной 'x'"""
     if x is None:
-        return "Нет данных"
+        yield "Нет данных"
 
 
     if not list_dict:
-        return "Нет данных"
+        yield "Нет данных"
 
 
     found_any = False
@@ -20,7 +20,7 @@ def filter_by_currency(list_dict, x=None):
         except TypeError, AttributeError:
             continue
     if not found_any:
-        return "Нет данных"
+        yield "Нет данных"
 
 
 def transaction_descriptions(list_dict):
