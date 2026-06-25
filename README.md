@@ -253,4 +253,4 @@ for x in range(5):
 Проект использует [Poetry](https://python-poetry.org/) для управления зависимостями.
 
 1. Клонируйте репозиторий:
-   ```bash git clone [https://github.com/vlck-4410/Home.git]
+   ```bash git clone [https://github.com/vlck-4410/bank_operations_analis]
