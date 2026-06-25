@@ -1,3 +1,4 @@
+
 def filter_by_state(list_dict: list, state="EXECUTED") -> list:
     """Принимает список словарей и значение для ключа state, возвращает новый список,
     со словарями, в которых state соответсвтует указанному значению."""
@@ -24,3 +25,5 @@ def sort_by_date(list_dict: list, reverse: bool = True) -> list:
         else:
             sorted_dict_date = sorted(list_dict, key=lambda k: k.get("date", ""), reverse=reverse)
             return sorted_dict_date
+
+

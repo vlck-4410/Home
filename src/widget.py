@@ -18,12 +18,17 @@ def mask_account_card(account_card: str) -> str:
 
 
 def get_date(date: str) -> str:
-    if len(date) == 26:
-        parts = date[:-16].split("-")
-        fixed_date = f"{parts[2]}.{parts[1]}.{parts[0]}"
+    if len(date) > 10:
+        parts = date[0:10].split("-")
+        fixed_date = f'{parts[2]}.{parts[1]}.{parts[0]}'
         return fixed_date
     return "Некорректно введена дата"
+    # if len(date) == 26:
+    #     parts = date[:-16].split("-")
+    #     fixed_date = f"{parts[2]}.{parts[1]}.{parts[0]}"
+    #     return fixed_date
+    # return "Некорректно введена дата"
 
 
-i = mask_account_card("MasterCard 364")
+i = get_date('20=2144123')
 print(i)
